@@ -1,0 +1,43 @@
+<%- include('../includes/header'); %>
+<%- include('../includes/nav'); %>
+
+<div class="container">
+    <div class="row">
+      <div class="col-lg-2"></div>
+
+      <div class="col-lg-8 my-3">
+        <h1 class="text-center">Usuario</h1>
+        <p class="text-center lead">Crie ou edite seu usuario abaixo.</p>
+
+        <%- include('../../includes/messages'); %>
+        
+          <form action="/usuario/registrar" method="POST">
+          <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome">
+          </div>
+
+          <div class="form-group">
+            <label for="nickname">nickname</label>
+            <input  type="text" class="form-control" id="nickname" name="nickname">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input  type="email" class="form-control" id="email" name="email">
+          </div>
+
+          <div class="form-group">
+            <label for="senha">Senha</label>
+            <input type="password" class="form-control" id="senha" name="senha">
+          </div>
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+      </div>
+
+      <div class="col-lg-2"></div>
+    </div>
+  </div>
+
+<%- include('../includes/footer'); %>
