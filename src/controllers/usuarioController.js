@@ -44,9 +44,21 @@ exports.editar = async (req, res) => {
     }
 };
 
-exports.atualizar = (req, res, next) => {
-    try{
-        throw new Error('Erro simulado no banco de dados');
+exports.atualizar = async (req, res, next) => {
+    try {
+        if(!req.params.id) return res.render('404');
+        const usuario = new Usuario(req.body);
+        await usuario.editar(req.params.id)
+    
+        if(usuario.errors.length > 0){
+            req.flash('errors', usuario.errors);
+            req.session.save(() => res.redirect(req.get('referer')));
+            return;
+        }
+    
+        req.flash('success', 'Contato editado com sucesso.');
+        req.session.save(() => res.redirect(req.get('referer')));
+        return;
     } catch(e){
         ErrorHandler.logAndRenderError(e, res, '404');
     }

@@ -24,7 +24,7 @@ class ErrorLogger {
     }
 
     const logFile = path.join(logFolder, `${day}${month}${year}.txt`);
-    const errorMessage = `${new Date().toISOString()} - ${error.name}: ${error.message}\n${error.stack}\n\n`;
+    const errorMessage = `\n${new Date().toISOString()} - ${error.toString()}${error.stack.split('\n')[1]};`;
 
     fs.appendFileSync(logFile, errorMessage, 'utf8');
   }
