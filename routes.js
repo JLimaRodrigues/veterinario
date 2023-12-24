@@ -28,6 +28,7 @@ route.post('/usuario/registrar', loginRequired, usuarioController.registrar);
 route.get('/usuario/editar/:id', loginRequired, usuarioController.editar);
 route.post('/usuario/atualizar/:id', loginRequired, usuarioController.atualizar);
 route.get('/usuario/excluir/:id', loginRequired, usuarioController.excluir);
+route.post('/usuario/deletar/:id', loginRequired, usuarioController.deletar);
 
 //rotas de produtos
 

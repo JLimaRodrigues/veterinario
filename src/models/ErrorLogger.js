@@ -8,15 +8,18 @@ class ErrorLogger {
 
   //retorna a data atual no formato para ser inserido no nome do arquivo
   getCurrentDate() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    return { year, month, day };
+    const now     = new Date();
+    const year    = now.getFullYear();
+    const month   = String(now.getMonth() + 1).padStart(2, '0');
+    const day     = String(now.getDate()).padStart(2, '0');
+    const hours   = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0'); 
+    return { year, month, day, hours, minutes, seconds };
   }
 
   logError(error) {
-    const { year, month, day } = this.getCurrentDate();
+    const { year, month, day, hours, minutes, seconds } = this.getCurrentDate();
     const logFolder = path.join(this.logsFolderPath, year.toString());
 
     if (!fs.existsSync(logFolder)) {
@@ -24,7 +27,7 @@ class ErrorLogger {
     }
 
     const logFile = path.join(logFolder, `${day}${month}${year}.txt`);
-    const errorMessage = `\n${new Date().toISOString()} - ${error.toString()}${error.stack.split('\n')[1]};`;
+    const errorMessage = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}  - ${error.toString()}${error.stack.split('\n')[1]};\n`;
 
     fs.appendFileSync(logFile, errorMessage, 'utf8');
   }
