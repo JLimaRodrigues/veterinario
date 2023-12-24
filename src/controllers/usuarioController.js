@@ -42,7 +42,7 @@ exports.editar = async (req, res) => {
     
         if(!usuario) return res.render('404');
     
-        res.render('administracao/usuarios/usuario', { usuario });
+        res.render('administracao/usuarios/form/editarUsuario', { usuario });
     } catch(e){
         ErrorHandler.logAndRenderError(e, res, '404');
     }
