@@ -10,9 +10,10 @@ $(document).ready(() => {
             method: 'GET',
             success: function (data) {
                 //Insira o conteúdo retornado no corpo do modal
+                $('#tituloModalUsuario').html('Novo Usuário');
                 $('.modal-body').html(data);
 
-                $('#novoUsuario').modal('show');
+                $('#modalUsuario').modal('show');
             },
             error: function (error) {
                 console.error('Erro ao carregar o conteúdo do modal', error);
@@ -32,9 +33,10 @@ $(document).ready(() => {
             method: 'GET',
             success: function (data) {
                 //Insira o conteúdo retornado no corpo do modal
+                $('#tituloModalUsuario').html('Editar Usuário');
                 $('.modal-body').html(data);
 
-                $('#editarUsuario').modal('show');
+                $('#modalUsuario').modal('show');
             },
             error: function (error) {
                 console.error('Erro ao carregar o conteúdo do modal', error);
@@ -54,15 +56,14 @@ $(document).ready(() => {
             method: 'GET',
             success: function (data) {
                 //Insira o conteúdo retornado no corpo do modal
+                $('#tituloModalUsuario').html('Excluir Usuário');
                 $('.modal-body').html(data);
 
-                $('#excluirUsuario').modal('show');
+                $('#modalUsuario').modal('show');
             },
             error: function (error) {
                 console.error('Erro ao carregar o conteúdo do modal', error);
             }
-        })
-       
-        
+        }); 
     });
 })
