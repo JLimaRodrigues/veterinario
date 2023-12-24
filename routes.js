@@ -2,10 +2,12 @@ const express = require('express');
 const route   = express.Router();
 
 //controllers
-const homeController = require('./src/controllers/homeController');
-const loginController = require('./src/controllers/loginController');
-const menuController  = require('./src/controllers/menuController');
+const homeController    = require('./src/controllers/homeController');
+const loginController   = require('./src/controllers/loginController');
+const menuController    = require('./src/controllers/menuController');
 const usuarioController = require('./src/controllers/usuarioController');
+const produtoController =  require('./src/controllers/produtoController');
+const servicoController = require('./src/controllers/servicoController');
 
 //middlewares
 const { loginRequired } = require('./src/middlewares/middleware');
@@ -31,7 +33,9 @@ route.get('/usuario/excluir/:id', loginRequired, usuarioController.excluir);
 route.post('/usuario/deletar/:id', loginRequired, usuarioController.deletar);
 
 //rotas de produtos
+route.get('/produtos', loginRequired, produtoController.index);
 
 //rotas de serviços
+route.get('/servicos', loginRequired, servicoController.index);
 
 module.exports = route;

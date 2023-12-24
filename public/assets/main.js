@@ -25,7 +25,6 @@ $(document).ready(() => {
             url: `/usuario/novo/`,
             method: 'GET',
             success: function (data) {
-                //Insira o conteúdo retornado no corpo do modal
                 $('#tituloModalUsuario').html('Novo Usuário');
                 $('.modal-body').html(data);
 
@@ -48,7 +47,6 @@ $(document).ready(() => {
             url: `/usuario/editar/${id}`,
             method: 'GET',
             success: function (data) {
-                //Insira o conteúdo retornado no corpo do modal
                 $('#tituloModalUsuario').html('Editar Usuário');
                 $('.modal-body').html(data);
 
@@ -71,7 +69,6 @@ $(document).ready(() => {
             url: `/usuario/excluir/${id}`,
             method: 'GET',
             success: function (data) {
-                //Insira o conteúdo retornado no corpo do modal
                 $('#tituloModalUsuario').html('Excluir Usuário');
                 $('.modal-body').html(data);
 
