@@ -9,6 +9,8 @@
         <h1 class="text-center">Usuario</h1>
         <p class="text-center lead">Lista de usuários.</p>
 
+        <button id="novo-usuario" class="btn btn-success my-3">Novo Usuário</button>
+
         <%- include('../../includes/messages'); %>
         
           <table id="usuarioTabela">
@@ -40,21 +42,6 @@
     </div>
   </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="excluirUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Excluir usuário</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%- include('modals'); %>
 
 <%- include('../includes/footer'); %>

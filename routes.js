@@ -23,7 +23,7 @@ route.get('/logout', loginController.logout);
 
 //rotas de usuarios
 route.get('/usuario', loginRequired, usuarioController.index);
-route.get('/usuario/novo', loginRequired, usuarioController.modalNovo);
+route.get('/usuario/novo', loginRequired, usuarioController.criar);
 route.post('/usuario/registrar', loginRequired, usuarioController.registrar);
 route.get('/usuario/editar/:id', loginRequired, usuarioController.editar);
 route.post('/usuario/atualizar/:id', loginRequired, usuarioController.atualizar);

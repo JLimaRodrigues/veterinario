@@ -9,8 +9,8 @@ exports.index = async (req, res) => {
 }
 
 //método responsável por retornar a página de criar usuários
-exports.modalNovo = (req, res) => {
-    res.render('administracao/usuarios/usuario', { contato: {} });
+exports.criar = (req, res) => {
+    res.render('administracao/usuarios/form/novoUsuario');
 }
 
 //método responsável por criar usuário no banco de dados
@@ -26,7 +26,7 @@ exports.registrar = async (req, res) => {
         }
 
         req.flash('success', 'Seu usuário foi criado com sucesso.');
-        req.session.save(() => res.redirect('/usuario/novo'));
+        req.session.save(() => res.redirect(req.get('referer')));
         return;
     } catch(e){
         ErrorHandler.logAndRenderError(e, res, '404');
