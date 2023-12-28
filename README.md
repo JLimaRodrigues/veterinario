@@ -5,7 +5,7 @@ Este exemplo utiliza como banco de dados MYSQL.
 
 Configuração do banco de dados deve ser feita em: .env
 
-##Para iniciar o Projeto:
+## Para iniciar o Projeto:
     //Digite no terminal
     npx sequelize-cli db:migrate
     npx sequelize-cli db:seed:all
