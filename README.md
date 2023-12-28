@@ -5,6 +5,11 @@ Este exemplo utiliza como banco de dados MYSQL.
 
 Configuração do banco de dados deve ser feita em: .env
 
+##Para iniciar o Projeto:
+    //Digite no terminal
+    npx sequelize-cli db:migrate
+    npx sequelize-cli db:seed:all
+
 Bibliotecas: 
  - "bootstrap": "^5.3.2",
  - "datatables": "^1.13.7",
@@ -24,4 +29,5 @@ Dependências:
  - "mysql2": "^3.6.5",
  - "nodemon": "^3.0.2",
  - "sequelize": "^6.35.2",
- - "validator": "^13.11.0"
+ - "validator": "^13.11.0",
+ - "sequelize-cli": "^6.6.2"
