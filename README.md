@@ -7,6 +7,7 @@ Configuração do banco de dados deve ser feita em: .env
 
 ## Para iniciar o Projeto:
     //Digite no terminal
+    npm start
     npx sequelize-cli db:migrate
     npx sequelize-cli db:seed:all
 
