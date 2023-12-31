@@ -1,4 +1,4 @@
-const ErrorHandler = require('../models/errorHandler');
+const ErrorLogger = require('../models/ErrorLogger');
 
 exports.middlewareGlobal = (req, res, next) => { 
     res.locals.errors = req.flash('errors');
@@ -9,7 +9,7 @@ exports.middlewareGlobal = (req, res, next) => {
 
 exports.checkCsrfError = (err, req, res, next) => {
     if(err){
-        return res.render('404');
+        ErrorLogger.logError(err);
     }
 
     next();

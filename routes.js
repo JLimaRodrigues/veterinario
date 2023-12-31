@@ -1,5 +1,6 @@
 const express = require('express');
 const route   = express.Router();
+const upload  = require('./config/configMulter');
 
 //controllers
 const homeController    = require('./src/controllers/homeController');
@@ -37,7 +38,7 @@ route.post('/usuario/deletar/:id', loginRequired, usuarioController.deletar);
 //rotas de produtos
 route.get('/produtos', loginRequired, produtoController.index);
 route.get('/produtos/novo', loginRequired, produtoController.criar);
-route.post('/produtos/registrar', loginRequired, produtoController.registrar);
+route.post('/produtos/registrar', loginRequired, upload.single("imagemProduto"), produtoController.registrar);
 
 //rotas de serviços
 route.get('/servicos', loginRequired, servicoController.index);

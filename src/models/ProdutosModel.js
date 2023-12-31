@@ -34,7 +34,7 @@ class Produto {
         this.valida();
         if(this.errors.length > 0 ) return;
 
-        this.usuario = await UsuarioSchema.create(this.body);
+        this.usuario = await ProdutoSchema.create(this.body);
     }
   
     async editar(id) {
