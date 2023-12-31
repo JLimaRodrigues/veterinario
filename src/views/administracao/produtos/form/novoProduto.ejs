@@ -1,0 +1,17 @@
+<form action="/produtos/registrar" method="POST">
+    <div class="mb-3">
+      <label for="nomeProduto" class="form-label">Nome Produto</label>
+      <input  id="nomeProduto" type="text" class="form-control" name="nomeProduto" placeholder="Ração de cachorro">
+    </div>
+    <div class="mb-3">
+      <label for="descricaoProduto" class="form-label">Descrição do Produto</label>
+      <textarea id="descricaoProduto" class="form-control" name="descricaoProduto" rows="3"></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="imagemProduto" class="form-label">Imagem do Produto</label>
+      <input id="imagemProduto" type="file" name="imagemProduto" class="btn btn-info" accept="image/png, image/jpeg" /> 
+    </div>
+
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <button class="btn btn-success">Enviar</button>
+  </form>

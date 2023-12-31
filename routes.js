@@ -14,6 +14,8 @@ const { loginRequired } = require('./src/middlewares/middleware');
 
 //rotas da home
 route.get('/', homeController.index);
+route.get('/listaDeProdutos', homeController.produtos);
+route.get('/listaDeServicos', homeController.servicos);
 
 //rotas de administração
 route.get('/menu', menuController.index);
@@ -34,6 +36,8 @@ route.post('/usuario/deletar/:id', loginRequired, usuarioController.deletar);
 
 //rotas de produtos
 route.get('/produtos', loginRequired, produtoController.index);
+route.get('/produtos/novo', loginRequired, produtoController.criar);
+route.post('/produtos/registrar', loginRequired, produtoController.registrar);
 
 //rotas de serviços
 route.get('/servicos', loginRequired, servicoController.index);

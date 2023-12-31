@@ -1,3 +1,4 @@
+//arquivo de configuração de caminhos relativos ao meu projeto para carregar seeders e migrations
 const path = require('path');
 
 module.exports = {
