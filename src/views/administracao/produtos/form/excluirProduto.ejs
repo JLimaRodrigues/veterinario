@@ -1,0 +1,12 @@
+<form action="/produtos/deletar/<%= produto.id %>" method="POST">
+    <div>
+        <div class="alert alert-danger" role="alert">
+            Deseja realmente excluir <b><%= produto.nome %></b>?
+        </div>
+
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <div>
+            <button class="btn btn-danger">Confirma</button>
+        </div>
+    </div>
+</form>

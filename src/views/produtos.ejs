@@ -18,25 +18,27 @@
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         
-        <!-- INICIO PRODUTOS -->
-        <div class="col">
-          <div class="card shadow-sm">
-            <!-- IMAGEM DO PRODUTO AQUI-->
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Imagem do produto" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Imagem do produto</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Imagem do produto</text></svg>
-            <div class="card-body">
-              <!-- TITULO DA IMAGEM AQUI -->
-              <p class="titulo-produto card-text">Este é um produto de teste.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <!--ACOES AQUI-->
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Ver</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
+        <% produtos.forEach( produto => { %>
+          <div class="col">
+            <div class="card shadow-sm">
+              <!-- IMAGEM DO PRODUTO AQUI-->
+              <img class="bd-placeholder-img card-img-top" src="/assets/images/produtos/<%= produto.imagem %>" alt="imagem do produto tal"  width="100%" height="225" />
+              <div class="card-body">
+                <!-- TITULO DA IMAGEM AQUI -->
+                <p class="titulo-produto card-text"><%= produto.nome %></p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <!--ACOES AQUI-->
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Ver</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
+                  </div>
+                  <small class="text-body-secondary">9 mins</small>
                 </div>
-                <small class="text-body-secondary">9 mins</small>
               </div>
             </div>
           </div>
-        </div>
+        <% }); %>
+        <!-- INICIO PRODUTOS -->
 
       </div>
       <!-- FIM PRODUTOS-->

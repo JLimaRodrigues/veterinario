@@ -1,5 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const connection = require('../../connection');
+const path       = require('path');
+const fs         = require('fs');
 
 const ProdutoSchema = connection.define('produtos', {
   id: {
@@ -76,11 +78,22 @@ class Produto {
   
     static async deletar(id) {
       if (typeof id !== 'string') return;
-      const produto = await ProdutoSchema.destroy({ where: { id } });
+      const produto = await ProdutoSchema.findByPk(id);
+    
+      if (!produto) return;
+      const caminhoImagem = path.join(__dirname, '..', '..', 'public', 'assets', 'images', 'produtos', produto.imagem);
+      if (fs.existsSync(caminhoImagem)) {
+        fs.unlinkSync(caminhoImagem);
+      } else {
+        return;
+      }
+      await ProdutoSchema.destroy({ where: { id } });
+    
+      // Retorna o produto após a exclusão bem-sucedida
       return produto;
     }
   
-    static async buscaUsuarios() {
+    static async buscaProdutos() {
       try {
           const produtos = await ProdutoSchema.findAll({
               order: [['createdAt', 'DESC']]

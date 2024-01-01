@@ -1,5 +1,5 @@
 const Usuario = require('../models/UsuarioModel');
-const ErrorHandler = require('../models/errorHandler');
+const ErrorHandler = require('../models/ErrorHandler');
 
 //método responsável por retornar o index dos usuários
 exports.index = async (req, res) => {

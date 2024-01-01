@@ -39,6 +39,8 @@ route.post('/usuario/deletar/:id', loginRequired, usuarioController.deletar);
 route.get('/produtos', loginRequired, produtoController.index);
 route.get('/produtos/novo', loginRequired, produtoController.criar);
 route.post('/produtos/registrar', loginRequired, upload.single("imagemProduto"), produtoController.registrar);
+route.get('/produtos/excluir/:id', loginRequired, produtoController.excluir);
+route.post('/produtos/deletar/:id', loginRequired, produtoController.deletar);
 
 //rotas de serviços
 route.get('/servicos', loginRequired, servicoController.index);
