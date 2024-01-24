@@ -3,6 +3,7 @@ const connection = require('../../connection');
 const path       = require('path');
 const fs         = require('fs');
 
+//tabela de Imagens do produto
 const ImagemProduto = connection.define('imagensProdutos', {
   idImagem: {
     type: DataTypes.INTEGER,
@@ -15,6 +16,7 @@ const ImagemProduto = connection.define('imagensProdutos', {
   }
 });
 
+//tabela de Produtos
 const ProdutoSchema = connection.define('produtos', {
   id: {
     type: DataTypes.INTEGER,
@@ -58,7 +60,7 @@ class Produto {
       if (this.errors.length > 0) return;
       await ProdutoSchema.update(this.body, { 
         where: { id },
-        incude: ImagemProduto 
+        include: ImagemProduto 
       });
       this.produto = await ProdutoSchema.findByPk(id, ImagemProduto);
     }
@@ -92,7 +94,12 @@ class Produto {
     // Métodos estáticos
     static async buscaPorId(id) {
       if (typeof id !== 'string') return;
-      const produto = await ProdutoSchema.findByPk(id);
+      const produto = await ProdutoSchema.findByPk(id, {
+        include: [
+          {
+              as: "imagens",
+              model: ImagemProduto
+      }]} );
       return produto;
     }
   

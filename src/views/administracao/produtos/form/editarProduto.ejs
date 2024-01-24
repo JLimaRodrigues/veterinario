@@ -1,0 +1,19 @@
+<form id="cadastrar-produto" action="/produtos/atualizar" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="nomeProduto" class="form-label">Nome Produto</label>
+      <input  id="nomeProduto" type="text" class="form-control" name="nome" placeholder="Ração de cachorro" value="<%= produto.nome %>">
+    </div>
+    <div class="mb-3">
+      <label for="descricaoProduto" class="form-label">Descrição do Produto</label>
+      <textarea id="descricaoProduto" class="form-control" name="descricao" rows="3"><%= produto.descricao %></textarea>
+    </div>
+    <div id="image-container" class="text-center">
+      <% imagens.forEach( imagem => { %>
+        <img src="/assets/images/produtos/<%= imagem.caminhoImagem %>" alt="imagem<%= imagem.idImagem %>">
+      <% }); %>
+    </div>
+    </div>
+
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <button class="btn btn-success">Enviar</button>
+  </form>

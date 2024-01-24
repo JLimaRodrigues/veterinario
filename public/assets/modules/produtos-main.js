@@ -55,6 +55,28 @@ $(document).ready(() => {
         });
     });
 
+     //excluir produto
+     $('a.editar-produto').on('click', e => {
+        e.preventDefault();
+
+        let id = e.target.id;
+
+        //faça a requisição AJAX para obter o conteúdo da página
+        $.ajax({
+            url: `/produtos/editar/${id}`,
+            method: 'GET',
+            success: function (data) {
+                $('#tituloModal').html('Editar Produto');
+                $('.modal-body').html(data);
+
+                $('#modal').modal('show');
+            },
+            error: function (error) {
+                console.error('Erro ao carregar o conteúdo do modal', error);
+            }
+        }); 
+    });
+
     //excluir produto
     $('a.excluir-produto').on('click', e => {
         e.preventDefault();

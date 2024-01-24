@@ -23,8 +23,6 @@ exports.registrar = (req, res) => {
             req.body.imagens.push(filename);
         }
 
-        //res.send(req.body)
-        //return;
         const produto  = new Produto(req.body);
         produto.registrar();
 
@@ -37,6 +35,26 @@ exports.registrar = (req, res) => {
         req.flash('success', 'Seu produto foi criado com sucesso.');
         req.session.save(() => res.redirect(req.get('referer')));
         return;
+    } catch(e){
+        ErrorHandler.logAndRenderError(e, res, '404');
+    }
+}
+
+exports.editar  = async (req, res) => {
+    try {
+
+        if(!req.params.id) return res.render('404');
+
+        const produto = await Produto.buscaPorId(req.params.id);
+
+        if(!produto) return res.render('404');
+
+        const imagens = produto.imagens;
+        //res.send(imagens);
+        //return;
+
+        res.render('administracao/produtos/form/editarProduto', { produto, imagens })
+
     } catch(e){
         ErrorHandler.logAndRenderError(e, res, '404');
     }
