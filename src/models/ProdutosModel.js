@@ -123,7 +123,12 @@ class Produto {
     static async buscaProdutos() {
       try {
           const produtos = await ProdutoSchema.findAll({
-              order: [['createdAt', 'DESC']]
+              order: [['createdAt', 'DESC']],
+                include: [
+                  {
+                      as: "imagens",
+                      model: ImagemProduto
+                  }]
           });
           return produtos;
       } catch (error) {
