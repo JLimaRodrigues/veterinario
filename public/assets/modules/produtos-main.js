@@ -1,6 +1,12 @@
 $(document).ready(() => {
 
-    //criar usuário
+    // Evitar o envio automático do formulário
+    $('#image-form').on('submit', function(event) {
+        event.preventDefault();
+        // Adicione aqui a lógica para enviar as imagens, se necessário
+    });
+
+    //criar produto
     $('button#novo-produto').on('click', e => {
         e.preventDefault();
 
@@ -49,7 +55,7 @@ $(document).ready(() => {
         });
     });
 
-    //excluir usuário
+    //excluir produto
     $('a.excluir-produto').on('click', e => {
         e.preventDefault();
 
@@ -70,4 +76,59 @@ $(document).ready(() => {
             }
         }); 
     });
-})
+});
+
+// Event delegation para lidar com cliques em um elemento pai estático
+$(document).on('click', '#insert-images', function() {
+    // Encontrar o elemento #image-upload dentro do modal atual
+    var imageUpload = $(this).closest('.modal').find('#image-upload');
+    imageUpload.click();
+});
+
+$(document).on('change', '#image-upload', function() {
+    // Encontrar o elemento #image-container dentro do modal atual
+    var imageContainer = $(this).closest('.modal').find('#image-container');
+
+    // Limpar o conteúdo anterior
+    imageContainer.empty();
+
+    // Exibir miniaturas das imagens selecionadas
+    for (const file of this.files) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const thumbnailContainer = $('<div>').addClass('thumbnail-container');
+            const thumbnail = $('<img>').addClass('thumbnail');
+            thumbnail.attr('src', e.target.result);
+            thumbnailContainer.append(thumbnail);
+
+            const actionsContainer = $('<div>').addClass('thumbnail-actions');
+            const editButton = $('<button>').addClass('btn btn-sm btn-primary').text('Editar');
+            const deleteButton = $('<button>').addClass('btn btn-sm btn-danger').text('Excluir');
+
+            editButton.on('click', function() {
+                // Lógica para editar a imagem (pode ser adicionada aqui)
+                // Exemplo: editarImagem(file);
+            });
+
+            deleteButton.on('click', function() {
+                thumbnailContainer.remove();
+            });
+
+            actionsContainer.append(editButton, deleteButton);
+            thumbnailContainer.append(actionsContainer);
+
+            thumbnailContainer.on('click', function() {
+                $('.thumbnail-container').removeClass('selected-thumbnail');
+                thumbnailContainer.addClass('selected-thumbnail');
+                // Lógica para selecionar a imagem principal (pode ser adicionada aqui)
+                // Exemplo: selecionarImagemPrincipal(file);
+                selecionarImagemPrincipal(file);
+            });
+
+            imageContainer.append(thumbnailContainer);
+        };
+
+        reader.readAsDataURL(file);
+    }
+});

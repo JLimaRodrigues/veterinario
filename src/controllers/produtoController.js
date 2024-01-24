@@ -13,13 +13,24 @@ exports.criar = (req, res) => {
 
 exports.registrar = (req, res) => {
     try {
-        req.body.imagem = req.file.filename;
+        //req.body.imagem = req.files.filename;
+        const files = req.files;
+        req.body.imagens  = [];
+
+        for(const file of Object.values(files)){
+            const { filename } = file;
+
+            req.body.imagens.push(filename);
+        }
+
+        //res.send(req.body)
+        //return;
         const produto  = new Produto(req.body);
         produto.registrar();
 
         if(produto.errors.length > 0){
             req.flash('errors', produto.errors);
-            req.session.save(() => req.redirect(req.get('referer')));
+            req.session.save(() => res.redirect('/produtos'));
             return;
         }
 

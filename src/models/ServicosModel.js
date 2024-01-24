@@ -1,6 +1,8 @@
 const { Model, DataTypes } = require('sequelize');
 const connection = require('../../connection');
 
+//TIPO DE SERVICOS: consultas, exames e vacinas, banho e tosa, passeio com pet, adestramento
+
 const ServicoSchema = connection.define('servicos', {
   id: {
     type: DataTypes.INTEGER,

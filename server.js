@@ -14,7 +14,7 @@ const { middlewareGlobal, checkCsrfError, csrfMiddleware } = require('./src/midd
 connection.authenticate()
   .then(() => {
     // Adiciona a sincronização do banco de dados após a autenticação
-    return connection.sync();
+    return connection.sync({ force: false });
   })
   .then(() => {
     app.emit('pronto');

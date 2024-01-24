@@ -3,6 +3,18 @@ const connection = require('../../connection');
 const path       = require('path');
 const fs         = require('fs');
 
+const ImagemProduto = connection.define('imagensProdutos', {
+  idImagem: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  caminhoImagem: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+});
+
 const ProdutoSchema = connection.define('produtos', {
   id: {
     type: DataTypes.INTEGER,
@@ -16,11 +28,6 @@ const ProdutoSchema = connection.define('produtos', {
   descricao: {
     type: DataTypes.TEXT,
     allowNull: false
-  },
-  imagem: {
-    type: DataTypes.STRING,
-    allowNull: true,
-    defaultValue: ''
   }
 });
 
@@ -36,15 +43,24 @@ class Produto {
         this.valida();
         if(this.errors.length > 0 ) return;
 
-        this.usuario = await ProdutoSchema.create(this.body);
+        this.produto = await ProdutoSchema.create(this.body);
+
+        //crie as imagens associadas ao produto
+        if(this.body.imagens && this.body.imagens.length > 0 ){
+          const imagens = this.body.imagens.map( imagem => ({ caminhoImagem: imagem, produtoId: this.produto.id }));
+          await ImagemProduto.bulkCreate(imagens, { individualHooks: true, returning: true });
+        }
     }
   
     async editar(id) {
       if (typeof id !== 'string') return;
       this.valida();
       if (this.errors.length > 0) return;
-      await ProdutoSchema.update(this.body, { where: { id } });
-      this.produto = await ProdutoSchema.findByPk(id);
+      await ProdutoSchema.update(this.body, { 
+        where: { id },
+        incude: ImagemProduto 
+      });
+      this.produto = await ProdutoSchema.findByPk(id, ImagemProduto);
     }
   
     valida() {
@@ -53,19 +69,23 @@ class Produto {
       // Validação
       if (!this.body.nome) this.errors.push('Nome é um campo obrigatório');
       if (!this.body.descricao) this.errors.push('Descrição é um campo obrigatório');
+      if (!this.body.imagens) this.errors.push('Pelo menos uma imagem é necessária no produto');
     }
   
     cleanUp() {
         for(const key in this.body){
-            if (typeof this.body[key] !== 'string'){
-                this.body[key] = '';
+
+            if (Array.isArray(this.body[key]) && this.body[key].length > 0) {
+              this.body[key] = this.body[key].map((element) => (typeof element !== 'string' ? '' : element));
+            } else if (typeof this.body[key] !== 'string') {
+              this.body[key] = '';
             }
         }
 
         this.body = {
             nome: this.body.nome,
             descricao: this.body.descricao,
-            imagem: this.body.imagem
+            imagens: this.body.imagens
         }
     }
   
@@ -104,5 +124,8 @@ class Produto {
       }
   }
   }
+
+ProdutoSchema.hasMany(ImagemProduto, { foreignKey: 'produtoId', as: 'imagens' });
+ImagemProduto.belongsTo(ProdutoSchema, { foreignKey: 'produtoId' });
 
 module.exports = Produto;
