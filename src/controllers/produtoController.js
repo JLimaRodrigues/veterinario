@@ -50,8 +50,6 @@ exports.editar  = async (req, res) => {
         if(!produto) return res.render('404');
 
         const imagens = produto.imagens;
-        //res.send(imagens);
-        //return;
 
         res.render('administracao/produtos/form/editarProduto', { produto, imagens })
 

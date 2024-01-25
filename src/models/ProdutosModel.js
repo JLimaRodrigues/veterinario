@@ -105,16 +105,27 @@ class Produto {
   
     static async deletar(id) {
       if (typeof id !== 'string') return;
-      const produto = await ProdutoSchema.findByPk(id);
+      const produto = await ProdutoSchema.findByPk(id, {
+        include: [
+          {
+              as: "imagens",
+              model: ImagemProduto
+          }
+        ]}
+      );
     
       if (!produto) return;
-      const caminhoImagem = path.join(__dirname, '..', '..', 'public', 'assets', 'images', 'produtos', produto.imagem);
-      if (fs.existsSync(caminhoImagem)) {
-        fs.unlinkSync(caminhoImagem);
-      } else {
-        return;
+
+      for(const imagem of produto.imagens ){
+        const caminhoImagem = path.join(__dirname, '..', '..', 'public', 'assets', 'images', 'produtos', imagem.caminhoImagem);
+        if (fs.existsSync(caminhoImagem)) {
+          fs.unlinkSync(caminhoImagem);
+        } else {
+          return;
+        }
       }
-      await ProdutoSchema.destroy({ where: { id } });
+      
+      await ProdutoSchema.destroy({ where: { id }});
     
       // Retorna o produto após a exclusão bem-sucedida
       return produto;
@@ -137,7 +148,7 @@ class Produto {
   }
   }
 
-ProdutoSchema.hasMany(ImagemProduto, { foreignKey: 'produtoId', as: 'imagens' });
+ProdutoSchema.hasMany(ImagemProduto, { foreignKey: 'produtoId', as: 'imagens', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 ImagemProduto.belongsTo(ProdutoSchema, { foreignKey: 'produtoId' });
 
 module.exports = Produto;
