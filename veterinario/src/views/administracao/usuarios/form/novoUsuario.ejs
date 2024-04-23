@@ -1,0 +1,28 @@
+<form action="/usuario/registrar" method="POST">
+
+    <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" class="form-control" id="nome" name="nome">
+      </div>
+
+      <div class="form-group">
+        <label for="nickname">nickname</label>
+        <input type="text" class="form-control" id="nickname" name="nickname">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email">
+      </div>
+
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input type="password" class="form-control" id="senha" name="senha">
+      </div>
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+      <div class="m-3">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+      
+</form>

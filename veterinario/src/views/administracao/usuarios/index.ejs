@@ -1,0 +1,47 @@
+<%- include('../includes/header'); %>
+<%- include('../includes/nav'); %>
+
+<div class="container">
+    <div class="row">
+      <div class="col-lg-2"></div>
+
+      <div class="col-lg-8 my-3">
+        <h1 class="text-center">Usuario</h1>
+        <p class="text-center lead">Lista de usuários.</p>
+
+        <button id="novo-usuario" class="btn btn-success my-3">Novo Usuário</button>
+
+        <%- include('../../includes/messages'); %>
+        
+          <table id="usuarioTabela">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Nickname</th>
+                <th>Email</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% usuarios.forEach( usuario => { %>
+                <tr>
+                  <td><%= usuario.nome %></td>
+                  <td><%= usuario.nickname %></td>
+                  <td><%= usuario.email %></td>
+                  <td>
+                    <a href="#" class="editar-usuario" id="<%= usuario.id %>">Editar</a>
+                    <a href="#" class="excluir-usuario" id="<%= usuario.id %>">Excluir</a>
+                  </td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+      </div>
+
+      <div class="col-lg-2"></div>
+    </div>
+  </div>
+
+  <%- include('../includes/modals'); %>
+
+<%- include('../includes/footer'); %>

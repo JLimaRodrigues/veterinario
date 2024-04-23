@@ -1,0 +1,4 @@
+logs/
+node_modules/
+.env
+rascunho_banco_de_dados.txt

@@ -1,0 +1,41 @@
+<%- include('includes/header'); %>
+
+    <section class="d-flex align-items-center py-4 bg-body-tertiary">
+
+        <main class="form-signin w-100 m-auto" style="max-width: 330px;padding: 1rem;">
+            <form action="login/logar" method="POST">
+                <img src="/assets/images/veterinario.svg" alt="icone Veterinario" height="72" width="57">
+                <h1 class="h3 mb-3 fw-normal">Faça o Login</h1>
+
+                <%- include('includes/messages'); %>
+          
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="teste@teste.com" style="margin-bottom: -1px;border-bottom-right-radius: 0;border-bottom-left-radius: 0;">
+                    <label for="email">Email</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Password" style="margin-bottom: -1px;border-bottom-right-radius: 0;border-bottom-left-radius: 0;">
+                    <label for="senha">Senha</label>
+                </div>
+            
+                <div class="form-check text-start my-3">
+                    <input class="form-check-input" type="checkbox" value="lembrar" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                    Lembrar de mim
+                    </label>
+                </div>
+
+
+                <!-- <div class="form-check text-start my-3">
+                    <a class="link-secondary  link-offset-2 link-underline link-underline-opacity-0" href="/login/cadastro">Se cadastrar</a>
+                </div> -->
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button class="btn btn-primary w-100 py-2" type="submit">Logar</button>
+                <p class="mt-5 mb-3 text-body-secondary">&copy; 2023</p>
+            </form>
+          </main>
+
+
+    </section>
+
+<%- include('includes/footer'); %>

@@ -1,0 +1,54 @@
+<%- include('includes/header'); %>
+<%- include('includes/nav'); %>
+
+<div class="my-5">
+    
+  <div class="p-5 text-center bg-body-tertiary">
+    <div class="container py-5">
+      <h1 class="text-body-emphasis">Lista de Produtos</h1>
+      <p class="col-lg-8 mx-auto lead">
+        Uma listagem de Produtos oferecidos pela nossa loja.
+      </p>
+    </div>
+  </div>
+
+
+  <div class="album py-5 bg-body-tertiary">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        
+        <% produtos.forEach( produto => { %>
+          <div class="col">
+            <div class="card shadow-sm">
+              <!-- IMAGEM DO PRODUTO AQUI-->
+              <img class="bd-placeholder-img card-img-top" src="/assets/images/produtos/<%= produto.imagens[0].caminhoImagem %>" alt="imagem do produto tal"  width="100%" height="225" />
+              <div class="card-body">
+                <!-- TITULO DA IMAGEM AQUI -->
+                <p class="titulo-produto card-text"><%= produto.nome %></p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <!--ACOES AQUI-->
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Ver</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
+                  </div>
+                  <small class="text-body-secondary">9 mins</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+        <!-- INICIO PRODUTOS -->
+
+      </div>
+      <!-- FIM PRODUTOS-->
+
+      <!--PAGINAÇÃO DOS PRODUTOS -->
+
+    </div>
+
+  </div>
+
+</div>
+
+<%- include('includes/footer'); %>

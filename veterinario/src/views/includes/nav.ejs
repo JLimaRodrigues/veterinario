@@ -1,0 +1,11 @@
+<nav class="navbar bg-dark" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Veterinario</a>
+    
+      <% if(usuario) { %>
+        <a class="link-secondary  link-offset-2 link-underline link-underline-opacity-0" href="/menu">Administração (<%= usuario.nickname %>)</a>
+      <% } else { %>
+        <a class="link-secondary  link-offset-2 link-underline link-underline-opacity-0" href="/login">Login</a>
+      <% } %>
+   </div>
+</nav>

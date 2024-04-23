@@ -1,0 +1,55 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
+  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+    <span class="fs-4">Veterinário</span>
+  </a>
+  <hr>
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+      <a href="/" class="nav-link text-white">
+        <i class="fa-solid fa-house"></i>
+        Home
+      </a>
+    </li>
+    <li>
+      <a href="/menu" class="nav-link text-white">
+        <i class="fa-solid fa-chart-simple"></i>
+        Dashboard
+      </a>
+    </li>
+    <li>
+      <a href="/servicos" class="nav-link text-white">
+        <i class="fa-regular fa-handshake"></i>
+        Serviços
+      </a>
+    </li>
+    <li>
+      <a href="/produtos" class="nav-link text-white">
+        <i class="fa-solid fa-truck"></i>
+        Produtos
+      </a>
+    </li>
+    <li>
+      <a href="/usuario" class="nav-link text-white">
+        <i class="fa-solid fa-user-group"></i>
+        Usuários
+      </a>
+    </li>
+  </ul>
+  <hr>
+  <div class="dropup">
+    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="" alt="" width="32" height="32" class="rounded-circle me-2">
+      <strong><%= usuario.nickname %></strong>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+      <li><a class="dropdown-item" href="#">Configurações</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="/logout">Logout</a></li>
+    </ul>
+  </div>
+</div>
+
+<!--INICIO DO SECTION-->
+<section style="height: 100rem; width: 100rem;">
+

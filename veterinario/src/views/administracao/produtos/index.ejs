@@ -1,0 +1,46 @@
+<%- include('../includes/header'); %>
+<%- include('../includes/nav'); %>
+
+<div class="container">
+    <div class="row">
+      <div class="col-lg-2"></div>
+
+      <div class="col-lg-8 my-3">
+        <h1 class="text-center">Produtos</h1>
+        <p class="text-center lead">Lista de produtos.</p>
+
+        <button id="novo-produto" class="btn btn-success  my-3">Cadastrar Produto</button>
+
+        <%- include('../../includes/messages'); %>
+
+        <table id="produtoTabela">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Descrição</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% produtos.forEach( produto => { %>
+              <tr>
+                <td><%= produto.nome %></td>
+                <td><%= produto.descricao %></td>
+                <td>
+                  <a href="#" class="editar-produto" id="<%= produto.id %>">Editar</a>
+                  <a href="#" class="excluir-produto" id="<%= produto.id %>">Excluir</a>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+
+      </div>
+
+      <div class="col-lg-2"></div>
+    </div>
+  </div>
+
+  <%- include('../includes/modals'); %>
+
+<%- include('../includes/footer'); %>

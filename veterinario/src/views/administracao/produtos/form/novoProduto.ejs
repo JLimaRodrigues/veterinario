@@ -1,0 +1,22 @@
+<form id="cadastrar-produto" action="/produtos/registrar" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="nomeProduto" class="form-label">Nome Produto</label>
+      <input  id="nomeProduto" type="text" class="form-control" name="nome" placeholder="Ração de cachorro">
+    </div>
+    <div class="mb-3">
+      <label for="descricaoProduto" class="form-label">Descrição do Produto</label>
+      <textarea id="descricaoProduto" class="form-control" name="descricao" rows="3"></textarea>
+    </div>
+    <div class="mb-3">
+      <!-- <label for="imagemProduto" class="form-label">Imagem do Produto</label> -->
+      <div id="thumbnail-container" class="text-center">
+        <span id="insert-images">Insira imagens do produto</span>
+        <input type="file" id="image-upload" accept="image/png, image/jpeg" name="imagemProduto" multiple style="display: none;">
+    </div>
+    <div id="image-container" class="text-center"></div>
+      <!-- <input id="imagemProduto" type="file" name="imagemProduto" class="btn btn-info" accept="image/png, image/jpeg" />  -->
+    </div>
+
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <button class="btn btn-success">Enviar</button>
+  </form>

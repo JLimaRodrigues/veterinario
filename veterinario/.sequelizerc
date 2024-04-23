@@ -1,0 +1,9 @@
+//arquivo de configuração de caminhos relativos ao meu projeto para carregar seeders e migrations
+const path = require('path');
+
+module.exports = {
+  'config': path.resolve('config', 'config.js'),
+  'models-path': path.resolve('src', 'models'),
+  'seeders-path': path.resolve('src', 'seeders'),
+  'migrations-path': path.resolve('src', 'migrations'),
+};
