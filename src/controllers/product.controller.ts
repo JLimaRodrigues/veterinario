@@ -21,9 +21,11 @@ class ProductController {
     }
 
     async create(req: Request, res: Response): Promise<Response> {
+        const { name, description } = req.body;
+
         const product = new Product;
-        product.name = "Prod 1";
-        product.description = "desc product";
+        product.name = name;
+        product.description = description;
 
         const productRepository = AppDataSource.getRepository(Product);
 
