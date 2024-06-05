@@ -3,11 +3,13 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import './connection';
+import productController from './controllers/product.controller';
 
 const PORT = process.env.PORT || 8000;
 
 const app = express();
 
+app.get('/api/products', productController.findAll);
 app.get('/', (req, res) => {
     res.send('Server up 2');
 })
