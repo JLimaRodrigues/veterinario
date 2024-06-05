@@ -1,20 +1,20 @@
 import { Request, Response } from "express";
-import AppDataSource from "@/connection";
+import AppDataSource from "@/database/connection";
 import { Product } from "@/entities/product.entity";
 import { Repository } from "typeorm";
 import { validate } from "class-validator";
+import { ProductRepository } from "@/repositories/product.repository";
 
 class ProductController {
-    private productRepository: Repository<Product>;
+    private productRepository: ProductRepository;
 
     constructor(){
-        this.productRepository = AppDataSource.getRepository(Product);
+        this.productRepository = new ProductRepository;
     }
 
-    async findAll(req: Request, res: Response): Promise<Response> {
-        const productRepository = AppDataSource.getRepository(Product);
+    findAll = async (req: Request, res: Response): Promise<Response> => {
 
-        const products = await productRepository.find()
+        const products = await this.productRepository.getAll()
 
         return res.status(200).send({
             data: products
