@@ -20,6 +20,24 @@ class ProductController {
         })
     }
 
+    async findOne(req: Request, res: Response): Promise<Response> {
+        const id: string = req.params.id;
+        
+        const productRepository = AppDataSource.getRepository(Product);
+
+        const product = await productRepository.findOneBy({ id });
+
+        if(!product){
+            return res.status(404).send({
+                error: "Product not found"
+            });
+        }
+
+        return res.status(200).send({
+            data: product
+        });
+    }
+
     async create(req: Request, res: Response): Promise<Response> {
         const { name, description } = req.body;
 

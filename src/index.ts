@@ -15,6 +15,7 @@ app.use(express.json());
 
 app.post('/api/products', productController.create);
 app.get('/api/products', productController.findAll);
+app.get('/api/products/:id', productController.findOne);
 app.get('/', (req, res) => {
     res.send('Server up 2');
 })
