@@ -9,3 +9,7 @@ export class CreateProductDTO {
     @Length(3, 255)
     description: string;
 }
+
+export class UpdateProductDTO extends CreateProductDTO {
+    id: string;
+}

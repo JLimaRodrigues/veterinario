@@ -1,10 +1,7 @@
 import { Request, Response } from "express";
-import AppDataSource from "@/database/connection";
-import { Product } from "@/entities/product.entity";
-import { Repository } from "typeorm";
 import { validate } from "class-validator";
 import { ProductRepository } from "@/repositories/product.repository";
-import { CreateProductDTO } from "@/dto/create.product.dto";
+import { CreateProductDTO, UpdateProductDTO } from "@/dto/product.dto";
 
 class ProductController {
     private productRepository: ProductRepository;
@@ -59,35 +56,41 @@ class ProductController {
         })
     }
 
-    async update(req: Request, res: Response): Promise<Response> {
+    update = async (req: Request, res: Response): Promise<Response> => {
         const id: string = req.params.id;
         const { name, description } = req.body;
 
-        const productRepository = AppDataSource.getRepository(Product);
+        const updateProductDTO = new UpdateProductDTO;
 
-        const product = await productRepository.findOneBy({ id });
+        updateProductDTO.id          = id;
+        updateProductDTO.name        = name;
+        updateProductDTO.description = description;
 
-        if(!product){
-            return res.status(404).send({
-                error: "Product not found"
-            });
-        }
-
-        product.name = name;
-        product.description = description;
-
-        const errors = await validate(product);
+        const errors = await validate(updateProductDTO);
         if(errors.length > 0){
             return res.status(422).send({
                 errors
             })
         }
 
-        const productDb = await productRepository.save(product);
+        try {
+            const productDb = await this.productRepository.update(updateProductDTO);
 
-        return res.status(200).send({
-            data: productDb
-        })
+            if(!productDb){
+                return res.status(404).send({
+                    error: "Product not found"
+                });
+            }
+
+            return res.status(200).send({
+                data: productDb
+            })
+
+        } catch (error) {
+            return res.status(500).send({
+                error: "Internal error"
+            })
+        }
     }
 
     delete = async (req: Request, res: Response): Promise<Response> => {
