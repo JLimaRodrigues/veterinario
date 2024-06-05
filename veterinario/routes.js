@@ -1,6 +1,7 @@
 const express = require('express');
 const route   = express.Router();
 const upload  = require('./config/configMulter');
+const path    = require('path');
 
 //controllers
 const homeController    = require('./src/controllers/homeController');
@@ -49,19 +50,12 @@ route.post('/produtos/deletar/:id', loginRequired, produtoController.deletar);
 route.get('/servicos', loginRequired, servicoController.index);
 
 //rotas da api
-route.get('/api/usuarios', function(req, res){
-    const usuarios = [
-        {nome: 'Jefferson', idade: 23, profissao: 'Militar'},
-        {nome: 'Danilo', idade: 24, profissao: 'Militar'},
-        {nome: 'Darlinton', idade: 26, profissao: 'Civil'},
-    ];
-
-    res.json(usuarios);
-});
-
 route.get('/api/times', apiController.times);
 route.get('/api/produtos', apiController.produtos);
+route.use('/api/produtos/imagem', express.static(path.join('public', 'assets', 'images', 'produtos')));
 route.post('/api/localizacao', apiController.localizacao);
 route.get('/api/buscarLocalizacoesProximas', apiController.buscarLocalizacoesProximas);
+route.put('/api/avistamento/:id', apiController.atualizar);
+route.delete('/api/avistamento/excluir/:id', apiController.excluir);
 
 module.exports = route;
