@@ -77,6 +77,22 @@ class ProductController {
             data: productDb
         })
     }
+
+    async delete(req: Request, res: Response): Promise<Response> {
+        const id = req.params.id;
+
+        const productRepository = AppDataSource.getRepository(Product);
+
+        try {
+            await productRepository.delete(id)
+
+            return res.status(204).send({})
+        } catch (error) {
+            return res.status(400).send({
+                error: "Error deleting"
+            })
+        }
+    }
 }
 
 export default new ProductController;
