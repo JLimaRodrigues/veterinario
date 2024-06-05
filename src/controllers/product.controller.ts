@@ -4,7 +4,7 @@ import { Product } from "@/entities/product.entity";
 import { Repository } from "typeorm";
 import { validate } from "class-validator";
 import { ProductRepository } from "@/repositories/product.repository";
-import CreateProductDTO from "@/dto/create.product.dto";
+import { CreateProductDTO } from "@/dto/create.product.dto";
 
 class ProductController {
     private productRepository: ProductRepository;
@@ -43,11 +43,18 @@ class ProductController {
     create = async (req: Request, res: Response): Promise<Response> => {
         const { name, description } = req.body;
 
-        const dto = new CreateProductDTO;
-        dto.name = name;
-        dto.description = description;
+        const createproducDTO = new CreateProductDTO;
+        createproducDTO.name = name;
+        createproducDTO.description = description;
 
-        const productDb = await this.productRepository.create(dto);
+        const errors = await validate(createproducDTO);
+        if(errors.length > 0){
+            return res.status(422).send({
+                errors
+            })
+        }
+
+        const productDb = await this.productRepository.create(createproducDTO);
 
         return res.status(201).send({
             data: productDb
