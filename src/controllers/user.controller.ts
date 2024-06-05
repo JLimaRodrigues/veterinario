@@ -3,7 +3,7 @@ import { validate } from "class-validator";
 import { UserRepository } from "@/repositories/user.repository";
 import { CreateUserDTO, UpdateUserDTO } from "@/dto/user.dto";
 
-class ProductController {
+class UserController {
     private userRepository: UserRepository;
 
     constructor(){
@@ -112,4 +112,4 @@ class ProductController {
     }
 }
 
-export default new ProductController;
+export default new UserController;
