@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import AppDataSource from "../connection";
 import { Product } from "../entities/product.entity";
 import { Repository } from "typeorm";
+import { validate } from "class-validator";
 
 class ProductController {
     private productRepository: Repository<Product>;
@@ -41,11 +42,18 @@ class ProductController {
     async create(req: Request, res: Response): Promise<Response> {
         const { name, description } = req.body;
 
+        const productRepository = AppDataSource.getRepository(Product);
+
         const product = new Product;
         product.name = name;
         product.description = description;
 
-        const productRepository = AppDataSource.getRepository(Product);
+        const errors = await validate(product);
+        if(errors.length > 0){
+            return res.status(422).send({
+                errors
+            })
+        }
 
         const productDb = await productRepository.save(product);
 
@@ -70,6 +78,13 @@ class ProductController {
 
         product.name = name;
         product.description = description;
+
+        const errors = await validate(product);
+        if(errors.length > 0){
+            return res.status(422).send({
+                errors
+            })
+        }
 
         const productDb = await productRepository.save(product);
 
