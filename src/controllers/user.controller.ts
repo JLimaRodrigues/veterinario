@@ -12,26 +12,26 @@ class ProductController {
 
     findAll = async (req: Request, res: Response): Promise<Response> => {
 
-        const products = await this.userRepository.getAll()
+        const users = await this.userRepository.getAll()
 
         return res.status(200).send({
-            data: products
+            data: users
         })
     }
 
     findOne = async (req: Request, res: Response): Promise<Response> => {
         const id: string = req.params.id;
         
-       const product = await this.userRepository.findOne(Number(id));
+       const user = await this.userRepository.findOne(Number(id));
 
-        if(!product){
+        if(!user){
             return res.status(404).send({
-                error: "Product not found"
+                error: "User not found"
             });
         }
 
         return res.status(200).send({
-            data: product
+            data: user
         });
     }
 
