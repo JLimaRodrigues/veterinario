@@ -1,9 +1,18 @@
 import {Request, Response, Router} from 'express';
 
 import productController from "@/controllers/product.controller";
+import userController from '@/controllers/user.controller';
 
 const routes = Router();
 
+//Users routes
+routes.post('/api/users', userController.create);
+routes.get('/api/users', userController.findAll);
+routes.get('/api/users/:id', userController.findOne);
+routes.put('/api/users/:id', userController.update);
+routes.delete('/api/users/:id', userController.delete);
+
+//Products routes
 routes.post('/api/products', productController.create);
 routes.get('/api/products', productController.findAll);
 routes.get('/api/products/:id', productController.findOne);
