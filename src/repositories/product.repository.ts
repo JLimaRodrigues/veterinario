@@ -21,4 +21,8 @@ export class ProductRepository {
         product.description = input.description;
         return await this.repository.save(product);
     }
+
+    async findOne(id: string): Promise<Product | null> {
+        return await this.repository.findOneBy({ id });
+    }
 }
