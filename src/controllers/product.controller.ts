@@ -2,12 +2,16 @@ import { Request, Response } from "express";
 import { validate } from "class-validator";
 import { ProductRepository } from "@/repositories/product.repository";
 import { CreateProductDTO, UpdateProductDTO } from "@/dto/product.dto";
+import { ProductImageRepository } from "@/repositories/productImage.repository";
+import { CreateProductImageDTO } from "@/dto/productImage.dto";
 
 class ProductController {
     private productRepository: ProductRepository;
+    private productImageRepository: ProductImageRepository;
 
     constructor(){
         this.productRepository = new ProductRepository;
+        this.productImageRepository = new ProductImageRepository;
     }
 
     findAll = async (req: Request, res: Response): Promise<Response> => {
@@ -36,7 +40,7 @@ class ProductController {
     }
 
     create = async (req: Request, res: Response): Promise<Response> => {
-        const { name, description } = req.body;
+        const { name, description, images } = req.body;
 
         const createproducDTO = new CreateProductDTO;
         createproducDTO.name = name;
@@ -50,6 +54,15 @@ class ProductController {
         }
 
         const productDb = await this.productRepository.create(createproducDTO);
+
+        //criar as imagens aqui, porque a partir daqui o produto tem id
+        images.forEach(async (image: CreateProductImageDTO) => {
+            try {
+                await this.productImageRepository.create(image, productDb);
+            } catch(error){
+                console.log(error)
+            }
+        });
 
         return res.status(201).send({
             data: productDb

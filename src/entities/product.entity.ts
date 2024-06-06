@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinTable, OneToMany, PrimaryColumn } from "typeorm";
+import { ProductImage } from "./productImage.entity";
 import { v4 as uuid } from 'uuid';
 
 @Entity('products')
@@ -11,6 +12,10 @@ export class Product {
     
     @Column()
     description: string;
+
+    @OneToMany(() => ProductImage, image => image.product)
+    @JoinTable()
+    images: ProductImage[]
 
     @CreateDateColumn({
         name: 'created_at',
