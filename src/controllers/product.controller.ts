@@ -18,9 +18,17 @@ class ProductController {
 
         const products = await this.productRepository.getAll()
 
+        const productsWithImages = await Promise.all(
+            products.map(async (product) => {
+                const productImages = await this.productImageRepository.getAllPerProduct(product.id);
+                product.images = productImages;
+                return product;
+            })
+        );
+    
         return res.status(200).send({
-            data: products
-        })
+            data: productsWithImages
+        });
     }
 
     findOne = async (req: Request, res: Response): Promise<Response> => {
@@ -33,6 +41,9 @@ class ProductController {
                 error: "Product not found"
             });
         }
+
+        const productsImages = await this.productImageRepository.getAllPerProduct(product.id)
+        product.images = productsImages;
 
         return res.status(200).send({
             data: product
@@ -55,7 +66,6 @@ class ProductController {
 
         const productDb = await this.productRepository.create(createproducDTO);
 
-        //criar as imagens aqui, porque a partir daqui o produto tem id
         images.forEach(async (image: CreateProductImageDTO) => {
             try {
                 await this.productImageRepository.create(image, productDb);
@@ -71,13 +81,14 @@ class ProductController {
 
     update = async (req: Request, res: Response): Promise<Response> => {
         const id: string = req.params.id;
-        const { name, description } = req.body;
+        const { name, description, images } = req.body;
 
         const updateProductDTO = new UpdateProductDTO;
 
         updateProductDTO.id          = id;
         updateProductDTO.name        = name;
         updateProductDTO.description = description;
+        updateProductDTO.images = images;
 
         const errors = await validate(updateProductDTO);
         if(errors.length > 0){
@@ -101,7 +112,7 @@ class ProductController {
 
         } catch (error) {
             return res.status(500).send({
-                error: "Internal error"
+                error: `Internal error, ${error}`
             })
         }
     }

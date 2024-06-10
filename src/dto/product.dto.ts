@@ -1,4 +1,7 @@
-import { Length, IsNotEmpty } from "class-validator";
+import { ProductImage } from "@/entities/productImage.entity";
+import { Length, IsNotEmpty, ValidateNested } from "class-validator";
+import { Type } from 'class-transformer';
+import { UpdateProductImageDTO } from "./productImage.dto";
 
 export class CreateProductDTO {
     @IsNotEmpty()
@@ -12,4 +15,8 @@ export class CreateProductDTO {
 
 export class UpdateProductDTO extends CreateProductDTO {
     id: string;
+
+    @ValidateNested({ each: true})
+    @Type(() => UpdateProductImageDTO)
+    images: UpdateProductImageDTO[];
 }

@@ -3,11 +3,14 @@ import { Product } from "@/entities/product.entity";
 import { Repository } from "typeorm";
 
 import { CreateProductDTO, UpdateProductDTO } from "@/dto/product.dto";
+import { ProductImageRepository } from "./productImage.repository";
 
 export class ProductRepository {
+    private productImageRepository: ProductImageRepository;
     private repository: Repository<Product>;
 
     constructor(){
+        this.productImageRepository = new ProductImageRepository();
         this.repository = AppDataSource.getRepository(Product);
     }
 
@@ -25,8 +28,12 @@ export class ProductRepository {
     async update(input: UpdateProductDTO): Promise<Product | null> {
         const product = await this.findOne(input.id);
         if(!product) return null;
+
         product.name        = input.name;
         product.description = input.description;
+
+        await this.productImageRepository.update(input.images, product);
+
         return await this.repository.save(product);
     }
 
