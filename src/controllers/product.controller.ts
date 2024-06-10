@@ -126,7 +126,7 @@ class ProductController {
             return res.status(204).send({})
         } catch (error) {
             return res.status(400).send({
-                error: `Error deleting, ${error}`
+                error: `Error deleting`
             })
         }
     }
