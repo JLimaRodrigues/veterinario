@@ -1,5 +1,4 @@
 import AppDataSource from "@/database/connection";
-import { UpdateProductDTO } from "@/dto/product.dto";
 import { CreateProductImageDTO, UpdateProductImageDTO } from "@/dto/productImage.dto";
 import { Product } from "@/entities/product.entity";
 import { ProductImage } from "@/entities/productImage.entity";

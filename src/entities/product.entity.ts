@@ -13,7 +13,9 @@ export class Product {
     @Column()
     description: string;
 
-    @OneToMany(() => ProductImage, image => image.product)
+    @OneToMany(() => ProductImage, image => image.product, {
+        cascade: ['insert', 'update']
+    })
     @JoinTable()
     images: ProductImage[]
 

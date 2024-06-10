@@ -11,7 +11,7 @@ export class ProductImage {
     path: string;
 
     @ManyToOne(() => Product, product => product.images, {
-        cascade: true,
+        onDelete: 'CASCADE'
     })
     @JoinTable()
     product: Product;

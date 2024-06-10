@@ -112,7 +112,7 @@ class ProductController {
 
         } catch (error) {
             return res.status(500).send({
-                error: `Internal error, ${error}`
+                error: `Internal error`
             })
         }
     }
@@ -126,7 +126,7 @@ class ProductController {
             return res.status(204).send({})
         } catch (error) {
             return res.status(400).send({
-                error: "Error deleting"
+                error: `Error deleting, ${error}`
             })
         }
     }

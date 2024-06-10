@@ -1,4 +1,3 @@
-import { ProductImage } from "@/entities/productImage.entity";
 import { Length, IsNotEmpty, ValidateNested } from "class-validator";
 import { Type } from 'class-transformer';
 import { UpdateProductImageDTO } from "./productImage.dto";
