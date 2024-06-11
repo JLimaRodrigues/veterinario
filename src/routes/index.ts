@@ -2,8 +2,12 @@ import {Request, Response, Router} from 'express';
 
 import productController from "@/controllers/product.controller";
 import userController from '@/controllers/user.controller';
+import authController from '@/controllers/auth.controller';
 
 const routes = Router();
+
+//Auth routes
+routes.post('/login', authController.login);
 
 //Users routes
 routes.post('/api/users', userController.create);

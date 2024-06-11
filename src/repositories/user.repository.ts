@@ -1,6 +1,7 @@
 import AppDataSource from "@/database/connection";
 import { User } from "@/entities/user.entity";
 import { Repository } from "typeorm";
+import * as bcrypt from 'bcrypt';
 
 import { CreateUserDTO, UpdateUserDTO } from "@/dto/user.dto";
 
@@ -20,7 +21,7 @@ export class UserRepository {
         user.name        = input.name;
         user.nickname    = input.nickname;
         user.email       = input.email;
-        user.password    = input.password;
+        user.password = await bcrypt.hash(input.password, 10);
         return await this.repository.save(user);
     }
 
@@ -30,7 +31,7 @@ export class UserRepository {
         user.name        = input.name;
         user.nickname    = input.nickname;
         user.email       = input.email;
-        user.password    = input.password;
+        user.password = await bcrypt.hash(input.password, 10);
         return await this.repository.save(user);
     }
 
@@ -40,5 +41,13 @@ export class UserRepository {
 
     async findOne(id: number): Promise<User | null> {
         return await this.repository.findOneBy({ id });
+    }
+
+    async findByEmail(email: string): Promise<User | null> {
+        return await this.repository.findOneBy({ email });
+    }
+
+    async checkPassword(user: User, password: string): Promise<boolean> {
+        return await bcrypt.compare(password, user.password);
     }
 }
