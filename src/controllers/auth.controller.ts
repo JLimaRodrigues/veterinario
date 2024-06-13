@@ -22,9 +22,11 @@ class AuthController {
         }
 
         try {
+            const jwtSecret = process.env.JWT_SECRET as string;
+            console.log(jwtSecret)
             const token = jwt.sign(
                 { id: user.id, email: user.email },
-                process.env.JWT_SECRET as string,
+                jwtSecret,
                 { expiresIn: '1h' }
             );
     
