@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { validate } from "class-validator";
+import bcrypt from 'bcryptjs';
 import { UserRepository } from "@/repositories/user.repository";
 import { CreateUserDTO, UpdateUserDTO } from "@/dto/user.dto";
 
@@ -38,11 +39,13 @@ class UserController {
     create = async (req: Request, res: Response): Promise<Response> => {
         const { name, nickname, email, password } = req.body;
 
+        const hashedPassword = await bcrypt.hash(password, 10);
+
         const createUserDTO = new CreateUserDTO;
         createUserDTO.name     = name;
         createUserDTO.nickname = nickname;
         createUserDTO.email    = email;
-        createUserDTO.password = password;
+        createUserDTO.password = hashedPassword;
 
         const errors = await validate(createUserDTO);
         if(errors.length > 0){
